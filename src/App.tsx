@@ -1,36 +1,17 @@
-import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from './services/firebase';
-import type { Question } from './model/question.ts';
+import { useAuth } from './contexts/AuthContext';
+import LoginPage from './pages/LoginPage.tsx';
+import MainPage from './pages/MainPage.tsx';
+
 import './App.css';
 
 function App() {
-  const [question, setQuestion] = useState<Question | null>(null);
+  const { user } = useAuth();
 
-  useEffect(() => {
-    const fetchQuestion = async () => {
-      const querySnapshot = await getDocs(collection(db, 'questions'));
-      const docs = querySnapshot.docs.map((doc) => doc.data() as Question);
-      if (docs.length > 0) {
-        setQuestion(docs[0]); // Get the first question
-      }
-    };
+  if (!user) {
+    return <LoginPage />;
+  }
 
-    fetchQuestion();
-  }, []);
-
-  return (
-    <div>
-      <h3>{question ? question.questionText : 'Loading...'}</h3>
-      <ul>
-        {question?.answers.map((answer, index) => (
-          <li key={index}>
-            <button>{answer}</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  return <MainPage />;
 }
 
 export default App;
