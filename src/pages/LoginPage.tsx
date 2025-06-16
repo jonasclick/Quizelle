@@ -3,7 +3,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { auth } from '../services/firebase';
+import { auth } from '../services/firebaseInit';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
