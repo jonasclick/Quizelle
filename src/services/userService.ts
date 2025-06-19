@@ -1,15 +1,29 @@
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from './firebaseInit';
 
-function getCurrentUid(): string {
+function getUserId(): string {
   const uid = auth.currentUser?.uid;
   if (!uid) throw new Error('User is not logged in.');
   return uid;
 }
 
+// Fetch user score from db
+export async function fetchUserScore() {
+  const uid = getUserId();
+
+  const userRef = doc(db, 'users', uid);
+  const snap = await getDoc(userRef);
+  const userData = snap.data();
+  if (userData?.score == undefined) {
+    console.error('Cannot find user score in db data.');
+    return 0;
+  }
+  return userData.score;
+}
+
 // Increment user score (after correct answer to a question)
-export async function incrementUserScore(by: number) {
-  const uid = getCurrentUid();
+export async function pushUserScore(by: number) {
+  const uid = getUserId();
 
   const userRef = doc(db, 'users', uid);
   const userSnap = await getDoc(userRef);
@@ -23,9 +37,8 @@ export async function incrementUserScore(by: number) {
   }
 }
 
-// Save answered question id to user in db to track answered questions
 export async function trackAnsweredQuestions(questionId: string) {
-  const uid = getCurrentUid();
+  const uid = getUserId();
 
   const answerRef = doc(db, 'users', uid, 'answers', questionId);
   await setDoc(answerRef, {
