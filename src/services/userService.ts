@@ -7,6 +7,19 @@ function getUserId(): string {
   return uid;
 }
 
+// Add new user to DB (right after AuthAccount creation)
+export async function createUserDocument(
+  uid: string,
+  email: string,
+  username: string
+) {
+  await setDoc(doc(db, 'users', uid), {
+    email,
+    username,
+    score: 0,
+  });
+}
+
 // Fetch user score from db
 export async function fetchUserScore() {
   const uid = getUserId();

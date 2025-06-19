@@ -4,11 +4,14 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '../services/firebaseInit';
+import { createUserDocument } from '../services/userService';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
 
+  // Login existing user (using Auth)
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -17,9 +20,20 @@ export default function LoginPage() {
     }
   };
 
+  // Registration: Create new user in Auth and in DB
   const register = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      // in Auth
+      const userCred = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const uid = userCred.user.uid;
+
+      // in DB
+      await createUserDocument(uid, email, username);
+
       alert('Account created!');
     } catch (error: any) {
       alert('Registration failed: ' + error.message);
@@ -39,6 +53,11 @@ export default function LoginPage() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder='Password'
         type='password'
+      />
+      <input
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder='Choose a Username.'
       />
       <button onClick={login}>Log In</button>
       <button onClick={register}>Register</button>
