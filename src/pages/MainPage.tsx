@@ -3,8 +3,14 @@ import { signOut } from 'firebase/auth';
 import { useGameSession } from '../hooks/useGameSession';
 
 export default function MainPage() {
-  const { question, score, selectedIndex, isCorrect, answerQuestion } =
-    useGameSession();
+  const {
+    question,
+    score,
+    selectedIndex,
+    isCorrect,
+    answerQuestion,
+    isFinished,
+  } = useGameSession();
 
   return (
     <div>
@@ -14,7 +20,11 @@ export default function MainPage() {
       <button onClick={() => signOut(auth)}>Logout</button>
       {/* Score */}
       <p>Score: {score}</p>
-      {question ? (
+
+      {/* Render Question Logic */}
+      {isFinished ? (
+        <p>🎉 You've answered all questions! Final score: {score}</p>
+      ) : question ? (
         <div style={{ marginTop: '2rem' }}>
           {/* Question */}
           <h3>{question.questionText}</h3>

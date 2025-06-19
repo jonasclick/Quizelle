@@ -12,6 +12,7 @@ export function useGameSession() {
   const [score, setScore] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [isFinished, setIsFinished] = useState(false); // if no questions left
 
   useEffect(() => {
     fetchScore();
@@ -25,6 +26,10 @@ export function useGameSession() {
 
   async function fetchNextQuestion() {
     const q = await fetchRandomUnansweredQuestion();
+    if (!q) {
+      setIsFinished(true);
+      return;
+    }
     setQuestion(q);
     setSelectedIndex(null);
     setIsCorrect(null);
@@ -69,5 +74,6 @@ export function useGameSession() {
     selectedIndex,
     isCorrect,
     answerQuestion,
+    isFinished,
   };
 }
