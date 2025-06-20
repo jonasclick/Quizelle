@@ -1,10 +1,26 @@
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from 'firebase/firestore';
 import { auth, db } from './firebaseInit';
 
 function getUserId(): string {
   const uid = auth.currentUser?.uid;
   if (!uid) throw new Error('User is not logged in.');
   return uid;
+}
+
+// Check if username is available
+export async function isUsernameAvailable(username: string): Promise<boolean> {
+  const q = query(collection(db, 'users'), where('username', '==', username));
+  const snapshot = await getDocs(q);
+  return snapshot.empty;
 }
 
 // Add new user to DB (right after AuthAccount creation)
@@ -50,12 +66,15 @@ export async function pushUserScore(by: number) {
   }
 }
 
-export async function trackAnsweredQuestions(questionId: string) {
+export async function trackAnsweredQuestions(
+  questionId: string,
+  isCorrect: boolean
+) {
   const uid = getUserId();
 
   const answerRef = doc(db, 'users', uid, 'answers', questionId);
   await setDoc(answerRef, {
-    correct: true,
+    correct: isCorrect,
     timestamp: Date.now(),
   });
 }

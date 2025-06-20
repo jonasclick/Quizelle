@@ -47,7 +47,7 @@ export function useGameSession() {
     // Track answered question id in user in DB.
     try {
       if (question.id) {
-        await trackAnsweredQuestions(question.id);
+        await trackAnsweredQuestions(question.id, correct);
       } else {
         console.warn('Cannot track answer: question.id is undefined');
       }

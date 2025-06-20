@@ -14,8 +14,6 @@ export default function MainPage() {
 
   return (
     <div>
-      <h2>Hi, there.</h2>
-
       {/* Logout Button */}
       <button onClick={() => signOut(auth)}>Logout</button>
       {/* Score */}

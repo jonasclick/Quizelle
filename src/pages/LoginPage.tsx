@@ -4,7 +4,10 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '../services/firebaseInit';
-import { createUserDocument } from '../services/userService';
+import {
+  createUserDocument,
+  isUsernameAvailable,
+} from '../services/userService';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -23,7 +26,14 @@ export default function LoginPage() {
   // Registration: Create new user in Auth and in DB
   const register = async () => {
     try {
-      // in Auth
+      // 1. Check if username is available
+      const available = await isUsernameAvailable(username);
+      if (!available) {
+        alert('Username already taken. Please choose another one.');
+        return;
+      }
+
+      // 2. Create new user in Auth
       const userCred = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -31,7 +41,7 @@ export default function LoginPage() {
       );
       const uid = userCred.user.uid;
 
-      // in DB
+      // 3. Create new user in DB
       await createUserDocument(uid, email, username);
 
       alert('Account created!');
@@ -57,7 +67,7 @@ export default function LoginPage() {
       <input
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        placeholder='Choose a Username.'
+        placeholder='Choose a username'
       />
       <button onClick={login}>Log In</button>
       <button onClick={register}>Register</button>
