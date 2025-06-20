@@ -8,7 +8,48 @@
   align-items: center;
 }
 
-.answerRow {
+.navigation {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navigationButton {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  background-color: #fff;
+  border: none;
+  box-shadow: 2px 5px 23.4px 0 rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  flex: 0 0 auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.9rem;
+  margin: 1rem;
+}
+
+.navigationButton:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+  transform: scale(1.03);
+  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1); /* subtle hover lift */
+}
+
+.navigationButtonIcon {
+  height: 43px;
+  margin: 0.7rem;
+}
+
+.navigationButton h4,
+.navigationButton h5 {
+  margin: 0;
+  padding: 0;
+  line-height: 1.3;
+  margin-left: 0.4rem;
+  margin-right: 0.8rem;
+}
+
+.answerButtonsRow {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

@@ -8,16 +8,20 @@ import {
   createUserDocument,
   isUsernameAvailable,
 } from '../services/userService';
+import styles from '../components/LoginPage.module.css';
+import logo from '../assets/logoPost.png';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
   const [username, setUsername] = useState('');
 
   // Login existing user (using Auth)
   const login = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
     } catch (error: any) {
       alert('Login failed: ' + error.message);
     }
@@ -36,13 +40,13 @@ export default function LoginPage() {
       // 2. Create new user in Auth
       const userCred = await createUserWithEmailAndPassword(
         auth,
-        email,
-        password
+        registerEmail,
+        registerPassword
       );
       const uid = userCred.user.uid;
 
       // 3. Create new user in DB
-      await createUserDocument(uid, email, username);
+      await createUserDocument(uid, registerEmail, username);
 
       alert('Account created!');
     } catch (error: any) {
@@ -52,25 +56,58 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h2>Login</h2>
-      <input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder='Email'
-      />
-      <input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder='Password'
-        type='password'
-      />
-      <input
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder='Choose a username'
-      />
-      <button onClick={login}>Log In</button>
-      <button onClick={register}>Register</button>
+      {/* Header */}
+      <div className={styles.header}>
+        <img src={logo} alt='Logo' style={{ height: '88px' }} />
+        <h3>PostGuessr</h3>
+      </div>
+      {/* Login or register */}
+      <div className={styles.loginArea}>
+        {/* Login */}
+        <input
+          value={loginEmail}
+          onChange={(e) => setLoginEmail(e.target.value)}
+          placeholder='Email'
+          className={styles.entryField}
+        />
+        <input
+          value={loginPassword}
+          onChange={(e) => setLoginPassword(e.target.value)}
+          placeholder='Password'
+          type='password'
+          className={styles.entryField}
+        />
+
+        <button onClick={login} className={styles.loginButton}>
+          Einloggen
+        </button>
+
+        {/* Register */}
+        <input
+          value={registerEmail}
+          onChange={(e) => setRegisterEmail(e.target.value)}
+          placeholder='Email'
+          className={styles.entryField}
+        />
+        <input
+          value={registerPassword}
+          onChange={(e) => setRegisterPassword(e.target.value)}
+          placeholder='Password'
+          type='password'
+          className={styles.entryField}
+        />
+
+        <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder='Choose a username'
+          className={styles.entryField}
+        />
+
+        <button onClick={register} className={styles.registerButton}>
+          Registrieren
+        </button>
+      </div>
     </div>
   );
 }
