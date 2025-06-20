@@ -1,6 +1,8 @@
 import { auth } from '../services/firebaseInit';
 import { signOut } from 'firebase/auth';
 import { useGameSession } from '../hooks/useGameSession';
+import styles from '../components/MainPage.module.css';
+import logo from '../assets/logoPost.png';
 
 export default function MainPage() {
   const {
@@ -14,39 +16,44 @@ export default function MainPage() {
 
   return (
     <div>
+      {/* Header */}
+      <div className={styles.header}>
+        <img src={logo} alt='Logo' style={{ height: '88px' }} />
+        <h3>PostGuessr</h3>
+      </div>
       {/* Logout Button */}
       <button onClick={() => signOut(auth)}>Logout</button>
       {/* Score */}
       <p>Score: {score}</p>
 
-      {/* Render Question Logic */}
+      {/* Render Quiz */}
       {isFinished ? (
         <p>🎉 You've answered all questions! Final score: {score}</p>
       ) : question ? (
-        <div style={{ marginTop: '2rem' }}>
+        <div>
           {/* Question */}
-          <h3>{question.questionText}</h3>
+          <h4>{question.questionText}</h4>
           {/* Answer Buttons */}
-          <ul>
+          <div className={styles.answerRow}>
             {question.answers.map((answer, idx) => (
-              <li key={idx}>
-                <button
-                  onClick={() => answerQuestion(idx)}
-                  // TODO: Move styles out?
-                  style={{
-                    backgroundColor:
-                      selectedIndex === idx
-                        ? isCorrect
-                          ? 'lightgreen'
-                          : 'salmon'
-                        : undefined,
-                  }}
-                >
-                  {answer}
-                </button>
-              </li>
+              <button
+                key={idx}
+                className={styles.answerButton}
+                onClick={() => answerQuestion(idx)}
+                // TODO: Move styles out?
+                style={{
+                  backgroundColor:
+                    selectedIndex === idx
+                      ? isCorrect
+                        ? 'lightgreen'
+                        : 'salmon'
+                      : undefined,
+                }}
+              >
+                {answer}
+              </button>
             ))}
-          </ul>
+          </div>
         </div>
       ) : (
         <p>Loading question...</p>
