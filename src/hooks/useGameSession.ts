@@ -3,6 +3,7 @@ import { fetchRandomUnansweredQuestion } from '../services/questionService';
 import {
   trackAnsweredQuestions,
   fetchUserScore,
+  fetchUsername,
   pushUserScore,
 } from '../services/userService';
 import type { Question } from '../model/question';
@@ -10,18 +11,25 @@ import type { Question } from '../model/question';
 export function useGameSession() {
   const [question, setQuestion] = useState<Question | null>(null);
   const [score, setScore] = useState(0);
+  const [username, setUsername] = useState('');
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [isFinished, setIsFinished] = useState(false); // if no questions left
 
   useEffect(() => {
     fetchScore();
+    fetchName();
     fetchNextQuestion();
   }, []);
 
   async function fetchScore() {
     const s = await fetchUserScore();
     setScore(s);
+  }
+
+  async function fetchName() {
+    const n = await fetchUsername();
+    setUsername(n);
   }
 
   async function fetchNextQuestion() {
@@ -71,6 +79,7 @@ export function useGameSession() {
   return {
     question,
     score,
+    username,
     selectedIndex,
     isCorrect,
     answerQuestion,

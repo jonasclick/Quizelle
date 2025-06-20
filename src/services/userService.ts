@@ -36,6 +36,20 @@ export async function createUserDocument(
   });
 }
 
+// Fetch user name from DB
+export async function fetchUsername() {
+  const uid = getUserId();
+
+  const userRef = doc(db, 'users', uid);
+  const snap = await getDoc(userRef);
+  const userData = snap.data();
+  if (userData?.username == undefined) {
+    console.error('Cannot find username in db data.');
+    return 0;
+  }
+  return userData.username;
+}
+
 // Fetch user score from db
 export async function fetchUserScore() {
   const uid = getUserId();
@@ -66,6 +80,7 @@ export async function pushUserScore(by: number) {
   }
 }
 
+// Save answered question in DB
 export async function trackAnsweredQuestions(
   questionId: string,
   isCorrect: boolean

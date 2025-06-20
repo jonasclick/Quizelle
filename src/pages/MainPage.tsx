@@ -10,6 +10,7 @@ export default function MainPage() {
   const {
     question,
     score,
+    username,
     selectedIndex,
     isCorrect,
     answerQuestion,
@@ -43,8 +44,10 @@ export default function MainPage() {
             className={styles.navigationButtonIcon}
           />
           <div>
-            <h5>Username</h5>
-            <h4>{score} Punkte</h4>
+            <h5>{username}</h5>
+            <h4>
+              {score} {score === 1 ? 'Punkt' : 'Punkte'}
+            </h4>
           </div>
         </button>
       </div>
