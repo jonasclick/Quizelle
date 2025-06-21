@@ -76,12 +76,18 @@
   box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1); /* subtle hover lift */
 }
 
-.correct {
-  background-color: #d4edda;
-  border-color: #28a745;
+.logoutButton {
+  height: 60px;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  margin: 0;
 }
 
-.incorrect {
-  background-color: #f8d7da;
-  border-color: #dc3545;
+.logoutButton:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+  transform: scale(1.03);
+  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1); /* subtle hover lift */
 }

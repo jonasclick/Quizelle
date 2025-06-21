@@ -5,6 +5,7 @@ import styles from '../components/MainPage.module.css';
 import logo from '../assets/logoPost.png';
 import leaderboarIcon from '../assets/leaderboardIcon.png';
 import accountIcon from '../assets/accountIcon.png';
+import logoutIcon from '../assets/logoutIcon.png';
 
 export default function MainPage() {
   const {
@@ -26,7 +27,7 @@ export default function MainPage() {
       </div>
       {/* Navigation */}
       <div className={styles.navigation}>
-        <button className={styles.navigationButton}>
+        <button className={styles.navigationButton} title='Rangliste anzeigen'>
           <img
             src={leaderboarIcon}
             alt='Leaderbord'
@@ -37,10 +38,10 @@ export default function MainPage() {
             <h4>Rang 14</h4>
           </div>
         </button>
-        <button className={styles.navigationButton}>
+        <button className={styles.navigationButton} title='Dein Punktestand'>
           <img
             src={accountIcon}
-            alt='Leaderbord'
+            alt='Account'
             className={styles.navigationButtonIcon}
           />
           <div>
@@ -51,8 +52,6 @@ export default function MainPage() {
           </div>
         </button>
       </div>
-      {/* Logout Button */}
-      <button onClick={() => signOut(auth)}>Logout</button>
 
       {/* Render Quiz */}
       {isFinished ? (
@@ -88,6 +87,15 @@ export default function MainPage() {
       ) : (
         <p>Loading question...</p>
       )}
+
+      {/* Logout Button */}
+      <img
+        src={logoutIcon}
+        alt='Logout'
+        className={styles.logoutButton}
+        onClick={() => signOut(auth)}
+        title='Abmelden'
+      />
     </div>
   );
 }
