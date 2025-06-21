@@ -73,7 +73,7 @@ export default function LoginPage() {
         <input
           value={loginPassword}
           onChange={(e) => setLoginPassword(e.target.value)}
-          placeholder='Password'
+          placeholder='Passwort'
           type='password'
           className={styles.entryField}
         />
@@ -92,7 +92,7 @@ export default function LoginPage() {
         <input
           value={registerPassword}
           onChange={(e) => setRegisterPassword(e.target.value)}
-          placeholder='Password'
+          placeholder='Passwort'
           type='password'
           className={styles.entryField}
         />
@@ -100,7 +100,7 @@ export default function LoginPage() {
         <input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder='Choose a username'
+          placeholder='Wähle einen Benutzernamen'
           className={styles.entryField}
         />
 
