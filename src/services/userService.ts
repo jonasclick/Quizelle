@@ -5,6 +5,8 @@ import {
   updateDoc,
   collection,
   query,
+  limit,
+  orderBy,
   where,
   getDocs,
 } from 'firebase/firestore';
@@ -36,32 +38,29 @@ export async function createUserDocument(
   });
 }
 
-// Fetch user name from DB
-export async function fetchUsername() {
+// Fetch user info: username, score, rank from DB
+export async function fetchUserInfo() {
   const uid = getUserId();
 
-  const userRef = doc(db, 'users', uid);
-  const snap = await getDoc(userRef);
-  const userData = snap.data();
-  if (userData?.username == undefined) {
-    console.error('Cannot find username in db data.');
-    return 0;
-  }
-  return userData.username;
-}
+  const usersRef = collection(db, 'users');
+  const q = query(usersRef, orderBy('score', 'desc'));
 
-// Fetch user score from db
-export async function fetchUserScore() {
-  const uid = getUserId();
+  const snapshot = await getDocs(q);
+  let rank = 0;
 
-  const userRef = doc(db, 'users', uid);
-  const snap = await getDoc(userRef);
-  const userData = snap.data();
-  if (userData?.score == undefined) {
-    console.error('Cannot find user score in db data.');
-    return 0;
+  for (const doc of snapshot.docs) {
+    rank++;
+    if (doc.id === uid) {
+      const data = doc.data();
+      return {
+        username: data.username,
+        score: data.score,
+        rank,
+      };
+    }
   }
-  return userData.score;
+
+  throw new Error('User not found in leaderboard');
 }
 
 // Increment user score (after correct answer to a question)
@@ -92,4 +91,18 @@ export async function trackAnsweredQuestions(
     correct: isCorrect,
     timestamp: Date.now(),
   });
+}
+
+// Fetch leaderboarddata from the TB
+export async function fetchLeaderboardUsers(limitCount: number = 10) {
+  const q = query(
+    collection(db, 'users'),
+    orderBy('score', 'desc'),
+    limit(limitCount)
+  );
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as { id: string; username: string; score: number }[];
 }

@@ -1,17 +1,19 @@
-import { auth } from '../services/firebaseInit';
+import { auth } from '../../services/firebaseInit';
 import { signOut } from 'firebase/auth';
-import { useGameSession } from '../hooks/useGameSession';
-import styles from '../components/MainPage.module.css';
-import logo from '../assets/logoPost.png';
-import leaderboarIcon from '../assets/leaderboardIcon.png';
-import accountIcon from '../assets/accountIcon.png';
-import logoutIcon from '../assets/logoutIcon.png';
+import { useGameSession } from '../../hooks/useGameSession';
+import { Link } from 'react-router-dom';
+import styles from './MainPage.module.css';
+import leaderboarIcon from '../../assets/leaderboardIcon.png';
+import accountIcon from '../../assets/accountIcon.png';
+import logoutIcon from '../../assets/logoutIcon.png';
+import Header from '../../components/Header/Header.tsx';
 
 export default function MainPage() {
   const {
     question,
-    score,
-    username,
+    userInfo,
+    // score,
+    // username,
     selectedIndex,
     isCorrect,
     answerQuestion,
@@ -21,13 +23,14 @@ export default function MainPage() {
   return (
     <div>
       {/* Header */}
-      <div className={styles.header}>
-        <img src={logo} alt='Logo' style={{ height: '88px' }} />
-        <h3>PostGuessr</h3>
-      </div>
+      <Header />
       {/* Navigation */}
       <div className={styles.navigation}>
-        <button className={styles.navigationButton} title='Rangliste anzeigen'>
+        <Link
+          to='/leaderboard'
+          className={styles.navigationButton}
+          title='Rangliste anzeigen'
+        >
           <img
             src={leaderboarIcon}
             alt='Leaderbord'
@@ -35,9 +38,9 @@ export default function MainPage() {
           />
           <div>
             <h5>Leaderboard</h5>
-            <h4>Rang 14</h4>
+            <h4>Rang {userInfo?.rank}</h4>
           </div>
-        </button>
+        </Link>
         <button className={styles.navigationButton} title='Dein Punktestand'>
           <img
             src={accountIcon}
@@ -45,9 +48,9 @@ export default function MainPage() {
             className={styles.navigationButtonIcon}
           />
           <div>
-            <h5>{username}</h5>
+            <h5>{userInfo?.username}</h5>
             <h4>
-              {score} {score === 1 ? 'Punkt' : 'Punkte'}
+              {userInfo?.score} {userInfo?.score === 1 ? 'Punkt' : 'Punkte'}
             </h4>
           </div>
         </button>
@@ -56,7 +59,8 @@ export default function MainPage() {
       {/* Render Quiz */}
       {isFinished ? (
         <h3>
-          🎉 Du hast alle Fragen beantwortet und {score} Punkte erzielt. 🎉
+          🎉 Du hast alle Fragen beantwortet und {userInfo?.score} Punkte
+          erzielt. 🎉
         </h3>
       ) : question ? (
         <div>

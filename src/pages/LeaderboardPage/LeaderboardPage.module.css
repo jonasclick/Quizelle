@@ -14,6 +14,8 @@
 }
 
 .navigationButton {
+  text-decoration: none;
+  color: inherit;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -49,45 +51,55 @@
   margin-right: 0.8rem;
 }
 
-.answerButtonsRow {
+/* Leaderboard Styling */
+.leaderboardList {
+  list-style: none;
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.leaderboardList > li:first-child {
+  background-color: #ffe680;
+}
+
+@keyframes crownGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 215, 0, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.6);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255, 215, 0, 0.4);
+    transform: scale(1);
+  }
+}
+
+.topRank {
+  background-color: #ffe680;
+  animation: crownGlow 2s infinite ease-in-out;
+  transition: transform 0.3s ease;
+}
+
+.leaderboardItem {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.25rem;
-  align-items: flex-start;
+  background-color: #edf2f5;
+  align-items: center;
+  border-radius: 15px;
+  padding: 0.5rem 1.5rem;
+  margin: 1rem;
 }
 
-.answerButton {
-  background-color: #fff;
-  border: none;
-  padding: 1.5rem; /* from text to border */
-  max-width: 200px;
-  box-shadow: 2px 5px 23.4px 0 rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  flex: 0 0 auto;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 0.9rem;
+.rank {
+  margin: 0 0 0 0;
 }
 
-.answerButton:hover {
-  background-color: #f6f6f6;
-  cursor: pointer;
-  transform: scale(1.03);
-  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1); /* subtle hover lift */
+.name {
+  margin: 0 0 0 2rem;
 }
 
-.logoutButton {
-  height: 60px;
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 1000;
-  margin: 0;
-}
-
-.logoutButton:hover {
-  background-color: #f6f6f6;
-  cursor: pointer;
-  transform: scale(1.03);
-  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1); /* subtle hover lift */
+.score {
+  margin: 0 0 0 auto;
 }

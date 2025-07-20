@@ -2,36 +2,33 @@ import { useEffect, useState } from 'react';
 import { fetchRandomUnansweredQuestion } from '../services/questionService';
 import {
   trackAnsweredQuestions,
-  fetchUserScore,
-  fetchUsername,
+  fetchUserInfo,
   pushUserScore,
 } from '../services/userService';
 import type { Question } from '../model/question';
 
 export function useGameSession() {
   const [question, setQuestion] = useState<Question | null>(null);
-  const [score, setScore] = useState(0);
-  const [username, setUsername] = useState('');
+  const [userInfo, setUserInfo] = useState<{
+    username: string;
+    score: number;
+    rank: number;
+  } | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [isFinished, setIsFinished] = useState(false); // if no questions left
 
   useEffect(() => {
-    fetchScore();
-    fetchName();
+    fetchInfo();
     fetchNextQuestion();
   }, []);
 
-  async function fetchScore() {
-    const s = await fetchUserScore();
-    setScore(s);
+  async function fetchInfo() {
+    const i = await fetchUserInfo();
+    setUserInfo(i);
   }
 
-  async function fetchName() {
-    const n = await fetchUsername();
-    setUsername(n);
-  }
-
+  // Load random question to present to the user
   async function fetchNextQuestion() {
     const q = await fetchRandomUnansweredQuestion();
     if (!q) {
@@ -68,7 +65,14 @@ export function useGameSession() {
 
     // Update score
     if (correct) {
-      setScore((prev) => prev + 1); // update score locally
+      // update score locally
+      setUserInfo((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          score: prev.score + 1,
+        };
+      });
       pushUserScore(1); // update score in DB
     }
 
@@ -78,8 +82,7 @@ export function useGameSession() {
 
   return {
     question,
-    score,
-    username,
+    userInfo,
     selectedIndex,
     isCorrect,
     answerQuestion,

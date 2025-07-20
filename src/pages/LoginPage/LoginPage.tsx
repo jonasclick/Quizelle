@@ -3,13 +3,14 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { auth } from '../services/firebaseInit';
+import { auth } from '../../services/firebaseInit';
 import {
   createUserDocument,
   isUsernameAvailable,
-} from '../services/userService';
-import styles from '../components/LoginPage.module.css';
-import logo from '../assets/logoPost.png';
+} from '../../services/userService';
+import styles from './LoginPage.module.css';
+import { useNavigate } from 'react-router-dom';
+import Header from '../../components/Header/Header.tsx';
 
 export default function LoginPage() {
   const [loginEmail, setLoginEmail] = useState('');
@@ -18,10 +19,13 @@ export default function LoginPage() {
   const [registerPassword, setRegisterPassword] = useState('');
   const [username, setUsername] = useState('');
 
+  const navigate = useNavigate();
+
   // Login existing user (using Auth)
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      navigate('/');
     } catch (error: any) {
       alert('Login failed: ' + error.message);
     }
@@ -57,10 +61,7 @@ export default function LoginPage() {
   return (
     <div>
       {/* Header */}
-      <div className={styles.header}>
-        <img src={logo} alt='Logo' style={{ height: '88px' }} />
-        <h3>PostGuessr</h3>
-      </div>
+      <Header />
       {/* Login or register */}
       <div className={styles.loginArea}>
         {/* Login */}

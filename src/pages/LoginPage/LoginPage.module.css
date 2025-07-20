@@ -1,13 +1,3 @@
-.header {
-  height: 148px;
-  background-color: #fc0;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
 .loginArea {
   max-width: 350px;
   display: flex;
