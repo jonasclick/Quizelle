@@ -55,7 +55,7 @@ export default function MainPage() {
           </div>
         </button>
       </div>
-
+      <h1 className='text-3xl font-bold underline'> Hello from TailwindCSS </h1>
       {/* Render Quiz */}
       {isFinished ? (
         <h3>
@@ -91,7 +91,6 @@ export default function MainPage() {
       ) : (
         <p>Loading question...</p>
       )}
-
       {/* Logout Button */}
       <img
         src={logoutIcon}
