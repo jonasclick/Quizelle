@@ -56,6 +56,7 @@ export default function MainPage() {
         </button>
       </div>
       <h1 className='text-3xl font-bold underline'> Hello from TailwindCSS </h1>
+      <button className='btn btn-primary'>Hello from DaisyUI</button>
       {/* Render Quiz */}
       {isFinished ? (
         <h3>
