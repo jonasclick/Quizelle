@@ -1,9 +1,11 @@
 .header {
-  height: 148px;
-  background-color: #fc0;
+  height: 120px;
+  background-color: #16191e;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }

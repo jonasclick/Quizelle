@@ -1,4 +1,4 @@
-.navigation {
+/* .navigation {
   display: flex;
   justify-content: flex-end;
 }
@@ -24,7 +24,7 @@
   background-color: #f6f6f6;
   cursor: pointer;
   transform: scale(1.03);
-  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1); /* subtle hover lift */
+  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1);
 }
 
 .navigationButtonIcon {
@@ -52,7 +52,7 @@
 .answerButton {
   background-color: #fff;
   border: none;
-  padding: 1.5rem; /* from text to border */
+  padding: 1.5rem;
   max-width: 200px;
   box-shadow: 2px 5px 23.4px 0 rgba(0, 0, 0, 0.08);
   border-radius: 12px;
@@ -65,7 +65,7 @@
   background-color: #f6f6f6;
   cursor: pointer;
   transform: scale(1.03);
-  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1); /* subtle hover lift */
+  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1);
 }
 
 .logoutButton {
@@ -81,5 +81,5 @@
   background-color: #f6f6f6;
   cursor: pointer;
   transform: scale(1.03);
-  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1); /* subtle hover lift */
-}
+  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.1);
+} */
