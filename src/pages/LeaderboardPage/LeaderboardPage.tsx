@@ -1,7 +1,6 @@
 import styles from './LeaderboardPage.module.css';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
-import leaderboarIcon from '../../assets/leaderboardIcon.png';
 import { useEffect, useState } from 'react';
 import { fetchLeaderboardUsers } from '../../services/userService';
 import Header from '../../components/Header/Header.tsx';
