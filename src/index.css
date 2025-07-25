@@ -6,7 +6,7 @@
 @plugin "daisyui/theme" {
   name: 'cyberpunk';
   default: true;
-  --color-base-300: #575046;
+  /* --color-base-300: #575046; */
   --color-primary: #575046;
   --color-secondary: #575046;
 }

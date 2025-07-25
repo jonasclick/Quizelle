@@ -1,5 +1,6 @@
 import styles from './LeaderboardPage.module.css';
 import { Link } from 'react-router-dom';
+import { ChevronRight } from 'lucide-react';
 import leaderboarIcon from '../../assets/leaderboardIcon.png';
 import { useEffect, useState } from 'react';
 import { fetchLeaderboardUsers } from '../../services/userService';
@@ -17,24 +18,17 @@ export default function LeaderboardPage() {
       {/* Header */}
       <Header />
       {/* Navigation */}
-      <div className={styles.navigation}>
-        <Link
-          to='/'
-          className={styles.navigationButton}
-          title='Zurück zum Quiz'
-        >
-          <img
-            src={leaderboarIcon}
-            alt='Leaderbord'
-            className={styles.navigationButtonIcon}
-          />
-          <div>
-            <h5>Zurück</h5>
-            <h4>zum Quiz</h4>
-          </div>
-        </Link>
+
+      <div className='flex justify-end px-4 mt-6'>
+        <ul className='menu menu-horizontal bg-base-200 rounded-box'>
+          <li>
+            <Link to='/' title='Zurück zum Quiz'>
+              <ChevronRight className='w-5 h-5' />
+            </Link>
+          </li>
+        </ul>
       </div>
-      <h2>Leaderboard</h2>
+      <p className='flex justify-center text-3xl font-semibold'>Leaderboard</p>
       <ul className={styles.leaderboardList}>
         {users.map((user, index) => (
           <li

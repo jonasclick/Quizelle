@@ -2,16 +2,13 @@ import { auth } from '../../services/firebaseInit';
 import { signOut } from 'firebase/auth';
 import { useGameSession } from '../../hooks/useGameSession';
 import { Link } from 'react-router-dom';
-import styles from './MainPage.module.css';
-import { Trophy, LogOut, UserRoundCog } from 'lucide-react';
+import { Trophy, LogOut, UserRound } from 'lucide-react';
 import Header from '../../components/Header/Header.tsx';
 
 export default function MainPage() {
   const {
     question,
     userInfo,
-    // score,
-    // username,
     selectedIndex,
     isCorrect,
     answerQuestion,
@@ -33,7 +30,7 @@ export default function MainPage() {
           </li>
           <li>
             <Link to='/leaderboard' title='Account Einstellungen'>
-              <UserRoundCog className='w-5 h-5' />
+              <UserRound className='w-5 h-5' />
               <h5>{userInfo?.username}</h5>
             </Link>
           </li>
@@ -44,37 +41,6 @@ export default function MainPage() {
           </li>
         </ul>
       </div>
-      {/* <div className={styles.navigation}>
-        <Link
-          to='/leaderboard'
-          className={styles.navigationButton}
-          title='Rangliste anzeigen'
-        >
-          <Trophy />
-          {/* <img
-            src={trophy}
-            alt='Leaderbord'
-            className={styles.navigationButtonIcon}
-          /> }
-          <div>
-            <h5>Leaderboard</h5>
-            <h4>Rang {userInfo?.rank}</h4>
-          </div>
-        </Link>
-        <button className={styles.navigationButton} title='Dein Punktestand'>
-          <img
-            src={accountIcon}
-            alt='Account'
-            className={styles.navigationButtonIcon}
-          />
-          <div>
-            <h5>{userInfo?.username}</h5>
-            <h4>
-              {userInfo?.score} {userInfo?.score === 1 ? 'Punkt' : 'Punkte'}
-            </h4>
-          </div>
-        </button>
-      </div> */}
 
       {/* Render Quiz */}
       {isFinished ? (
@@ -118,7 +84,7 @@ export default function MainPage() {
           </div>
         </div>
       ) : (
-        <p>Loading question...</p>
+        <p className='flex justify-center'>Loading question...</p>
       )}
     </div>
   );
