@@ -12,7 +12,7 @@ My purpose for this project was to learn
 
 Play Quizelle yourself now: {Placeholder for Weblink once it's live}
 
-<img src="https://github.com/jonasclick/hosting-images/blob/main/Quizelle.jpeg" alt="Image of the Quizelle App" style="max-width: 100%; height: auto;">
+<img src="https://github.com/jonasclick/hosting-images/blob/main/MainPageQuizelle.png" alt="Image of the Quizelle App" style="max-width: 100%; height: auto;">
 
 ## 🔭 Features
 
@@ -28,22 +28,13 @@ Play Quizelle yourself now: {Placeholder for Weblink once it's live}
 - **Auth & Backend:** Friebase (Auth and Firestore)
 - **Styling:** TailwindCSS v4, DaisyUI
 
-## 📦 Getting Started
-
-```bash
-git clone https://github.com/jonasclick/Quizelle.git
-cd Quizelle
-npm install
-npm run dev
-```
-
 ## 🧪 Development
 
 - All components are written in **TypeScript**.
 - Uses **modular, composable React components**.
 - Tailwind & DaisyUI made it easy to style the app consistently without spending too much time, as design was not the project focus.
 
-## 📁 Folder Structure
+## 📁 Project Architecture
 
 ```
 src/

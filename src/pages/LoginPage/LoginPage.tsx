@@ -6,8 +6,8 @@ import Header from '../../components/Header/Header.tsx';
 import { Mail, KeyRound } from 'lucide-react';
 
 export default function LoginPage() {
-  const [Email, setLoginEmail] = useState('');
-  const [Password, setLoginPassword] = useState('');
+  const [Email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
   const navigate = useNavigate();
 
   // Login existing user (using Auth)
@@ -39,14 +39,14 @@ export default function LoginPage() {
               <Mail className='w-4.5 h-4.5 opacity-50' />
               <input
                 value={Email}
-                onChange={(e) => setLoginEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 type='email'
                 placeholder='E-Mail'
                 required
               />
             </label>
             <div className='validator-hint hidden'>
-              Enter valid email address
+              Gebe eine gültige E-Mailadresse ein.
             </div>
           </div>
 
@@ -56,21 +56,20 @@ export default function LoginPage() {
               <KeyRound className='w-4.5 h-4.5 opacity-50' />
               <input
                 value={Password}
-                onChange={(e) => setLoginPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 type='password'
                 required
-                placeholder='Password'
+                placeholder='Passwort'
                 minLength={8}
                 pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
-                title='Must be more than 8 characters, including number, lowercase letter, uppercase letter'
+                title='Passwort'
               />
             </label>
             <p className='validator-hint hidden'>
-              Must be more than 8 characters, including
+              Muss mind. 8 Zeichen enthalten, darunter:
               <br />
-              - at least one number <br />
-              - at least one lowercase letter <br />- at least one uppercase
-              letter
+              - mind. eine Zahl <br />
+              - mind. einen Kleinbuchstaben <br />- mind. einen Großbuchstaben
             </p>
           </div>
 

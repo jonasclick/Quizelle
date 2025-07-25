@@ -86,6 +86,7 @@ export default function RegisterPage() {
                 type='email'
                 placeholder='E-Mail'
                 required
+                title='E-Mail'
               />
             </label>
             <div className='validator-hint hidden'>
@@ -102,18 +103,17 @@ export default function RegisterPage() {
                 onChange={(e) => setRegisterPassword(e.target.value)}
                 type='password'
                 required
-                placeholder='Password'
+                placeholder='Passwort'
                 minLength={8}
                 pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
-                title='Must be more than 8 characters, including number, lowercase letter, uppercase letter'
+                title='Passwort'
               />
             </label>
             <p className='validator-hint hidden'>
-              Must be more than 8 characters, including
+              Muss mind. 8 Zeichen enthalten, darunter:
               <br />
-              - at least one number <br />
-              - at least one lowercase letter <br />- at least one uppercase
-              letter
+              - mind. eine Zahl <br />
+              - mind. einen Kleinbuchstaben <br />- mind. einen Großbuchstaben
             </p>
           </div>
 
@@ -128,13 +128,13 @@ export default function RegisterPage() {
               pattern='[A-Za-z][A-Za-z0-9\-]*'
               minLength={3}
               maxLength={30}
-              title='Only letters, numbers or dash'
+              title='Nur Buchstaben, Zahlen oder Bindestrich (-) sind erlaubt.'
             />
           </label>
-          <p className='validator-hint'>
-            Must be 3 to 30 characters
+          <p className='validator-hint mb-3'>
+            Länge: 3 bis 30 Zeichen.
             <br />
-            containing only letters, numbers or dash
+            Nur Buchstaben, Zahlen oder Bindestrich (-).
           </p>
 
           {/* Login Button */}
