@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../services/firebaseInit';
 import {
-  createUserDocument,
+  createUserInDatabase,
   isUsernameAvailable,
 } from '../../services/userService';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,26 +10,16 @@ import Header from '../../components/Header/Header.tsx';
 import { Mail, KeyRound, UserRound } from 'lucide-react';
 
 export default function RegisterPage() {
-  const [Email, setRegisterEmail] = useState('');
-  const [Password, setRegisterPassword] = useState('');
+  const [email, setRegisterEmail] = useState('');
+  const [password, setRegisterPassword] = useState('');
   const [username, setUsername] = useState('');
 
   const navigate = useNavigate();
 
-  // Login an existing user (using Auth)
-  const login = async () => {
-    try {
-      await signInWithEmailAndPassword(auth, Email, Password);
-      navigate('/');
-    } catch (error: any) {
-      alert('Login failed: ' + error.message);
-    }
-  };
-
   // Registration: Create new user in Auth and in DB and log in automatically
   const register = async () => {
     try {
-      // 1. Check if username is available
+      // 1. DB: Check if username exists already in "usernames"
       const available = await isUsernameAvailable(username);
       if (!available) {
         alert(
@@ -41,21 +28,19 @@ export default function RegisterPage() {
         return;
       }
 
-      // 2. Create new user in Auth
+      // 2. Auth: Create new user in Auth (automatically signs user in)
       const userCred = await createUserWithEmailAndPassword(
         auth,
-        Email,
-        Password
+        email,
+        password
       );
       const uid = userCred.user.uid;
 
-      // 3. Create new user in DB
-      await createUserDocument(uid, Email, username);
+      // 3. DB: Reserve username in "usernames" and create user doc in "users"
+      await createUserInDatabase(uid, username);
 
-      //   alert('Account erstellt.');
-
-      // 4. Login the user
-      login();
+      // 4. Navigate to MainPage
+      navigate('/');
     } catch (error: any) {
       alert('Fehler bei der Registrierung: ' + error.message);
     }
@@ -81,7 +66,7 @@ export default function RegisterPage() {
             <label className='input validator'>
               <Mail className='w-4.5 h-4.5 opacity-50' />
               <input
-                value={Email}
+                value={email}
                 onChange={(e) => setRegisterEmail(e.target.value)}
                 type='email'
                 placeholder='E-Mail'
@@ -99,7 +84,7 @@ export default function RegisterPage() {
             <label className='input validator'>
               <KeyRound className='w-4.5 h-4.5 opacity-50' />
               <input
-                value={Password}
+                value={password}
                 onChange={(e) => setRegisterPassword(e.target.value)}
                 type='password'
                 required

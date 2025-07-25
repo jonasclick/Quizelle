@@ -7,7 +7,6 @@ import {
   query,
   limit,
   orderBy,
-  where,
   getDocs,
 } from 'firebase/firestore';
 import { auth, db } from './firebaseInit';
@@ -20,19 +19,19 @@ function getUserId(): string {
 
 // Check if username is available
 export async function isUsernameAvailable(username: string): Promise<boolean> {
-  const q = query(collection(db, 'users'), where('username', '==', username));
-  const snapshot = await getDocs(q);
-  return snapshot.empty;
+  const ref = doc(db, 'usernames', username);
+  const snapshot = await getDoc(ref);
+  return !snapshot.exists();
 }
 
-// Add new user to DB (right after AuthAccount creation)
-export async function createUserDocument(
-  uid: string,
-  email: string,
-  username: string
-) {
+// Account Creation (Signup)
+// DB: Reserve username in "usernames" and create user doc in "users"
+export async function createUserInDatabase(uid: string, username: string) {
+  // Reserve username in "usernames"
+  await setDoc(doc(db, 'usernames', username), { taken: true });
+
+  // Create user doc in "users"
   await setDoc(doc(db, 'users', uid), {
-    email,
     username,
     score: 0,
   });
@@ -93,7 +92,7 @@ export async function trackAnsweredQuestions(
   });
 }
 
-// Fetch leaderboarddata from the TB
+// Fetch leaderboarddata from the DB
 export async function fetchLeaderboardUsers(limitCount: number = 10) {
   const q = query(
     collection(db, 'users'),

@@ -42,7 +42,7 @@ export default function MainPage() {
         </ul>
       </div>
 
-      {/* Render Quiz */}
+      {/* Quiz */}
       {isFinished ? (
         <h3>
           🎉 Du hast alle Fragen beantwortet und {userInfo?.score} Punkte
@@ -59,7 +59,7 @@ export default function MainPage() {
                   {question.questionText}
                 </p>
                 {/* Answer Buttons */}
-                <div className='card-actions flex gap-4 items-center'>
+                <div className='card-actions flex gap-4 items-center justify-center'>
                   {question.answers.map((answer, idx) => (
                     <button
                       key={idx}

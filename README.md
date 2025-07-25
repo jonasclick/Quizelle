@@ -10,7 +10,10 @@ My purpose for this project was to learn
 
 ## 🚀 Play a round of Quizelle
 
-Quizelle is live on the web. Try it out! [www.quizelle.web.app](www.quizelle.web.app)
+Quizelle is live on the web. Try it out!
+<a href="https://quizelle.web.app"  target="_blank">
+www.quizelle.web.app
+</a>
 
 <a href="https://quizelle.web.app"  target="_blank">
 <img src="https://github.com/jonasclick/hosting-images/blob/main/MainPageQuizelle.png?raw=true"  alt="Image of the Quizelle App"  style="max-width: 100%; height: auto;">
@@ -29,15 +32,6 @@ Quizelle is live on the web. Try it out! [www.quizelle.web.app](www.quizelle.web
 - **Frontend:** React 19, Vite and TypeScript
 - **Auth & Backend:** Friebase (Auth and Firestore)
 - **Styling:** TailwindCSS v4, DaisyUI
-
-## 📦 Getting Started
-
-```bash
-git clone https://github.com/jonasclick/Quizelle.git
-cd Quizelle
-npm install
-npm run dev
-```
 
 ## 🧪 Development
 

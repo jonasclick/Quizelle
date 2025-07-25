@@ -1,15 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { auth } from '../services/firebaseInit';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { db } from '../services/firebaseInit';
-
 // type fallback to avoid Vite named export error
 type User = {
   uid: string;
-  email: string | null;
-  displayName: string | null;
 };
-import { auth } from '../services/firebaseInit';
 
 interface AuthContextType {
   user: User | null;
@@ -21,27 +16,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
-        // Create a db document for the user, if not yet existing.
-        // Trigger this on first login.
-        const userRef = doc(db, 'users', firebaseUser.uid);
-        const snap = await getDoc(userRef);
-        if (!snap.exists()) {
-          await setDoc(userRef, {
-            score: 0,
-            email: firebaseUser.email,
-          });
-          console.log('✅ Created Firestore user doc for:', firebaseUser.email);
-        }
-
         setUser({
           uid: firebaseUser.uid,
-          email: firebaseUser.email,
-          displayName: firebaseUser.displayName,
         });
+        console.log('DEBUG: AuthContext has set the user.');
       } else {
         setUser(null);
+        console.log('DEBUG: AuthContex has set the user to null.');
       }
     });
 
