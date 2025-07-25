@@ -8,11 +8,13 @@ My purpose for this project was to learn
 - to use authentication with Firebase (handling users, login, signup)
 - and to use a live database (to store quiz questions and user information).
 
-## 🚀 Quizelle will be live soon!
+## 🚀 Play a round of Quizelle
 
-Play Quizelle yourself now: {Placeholder for Weblink once it's live}
+Quizelle is live on the web. Try it out! [www.quizelle.web.app](www.quizelle.web.app)
 
-<img src="https://github.com/jonasclick/hosting-images/blob/main/MainPageQuizelle.png" alt="Image of the Quizelle App" style="max-width: 100%; height: auto;">
+<a href="https://quizelle.web.app"  target="_blank">
+<img src="https://github.com/jonasclick/hosting-images/blob/main/MainPageQuizelle.png?raw=true"  alt="Image of the Quizelle App"  style="max-width: 100%; height: auto;">
+</a>
 
 ## 🔭 Features
 
@@ -28,13 +30,22 @@ Play Quizelle yourself now: {Placeholder for Weblink once it's live}
 - **Auth & Backend:** Friebase (Auth and Firestore)
 - **Styling:** TailwindCSS v4, DaisyUI
 
+## 📦 Getting Started
+
+```bash
+git clone https://github.com/jonasclick/Quizelle.git
+cd Quizelle
+npm install
+npm run dev
+```
+
 ## 🧪 Development
 
 - All components are written in **TypeScript**.
 - Uses **modular, composable React components**.
 - Tailwind & DaisyUI made it easy to style the app consistently without spending too much time, as design was not the project focus.
 
-## 📁 Project Architecture
+## 📁 Folder Structure
 
 ```
 src/
