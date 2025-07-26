@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage/LoginPage.tsx';
 import MainPage from './pages/MainPage/MainPage.tsx';
 import LeaderboardPage from './pages/LeaderboardPage/LeaderboardPage.tsx';
 import RegisterPage from './pages/RegisterPage/RegisterPage.tsx';
+import ImprintPage from './pages/Imprint/ImprintPage.tsx';
 
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
         element={user ? <LeaderboardPage /> : <LoginPage />}
       />
       <Route path='/register' element={<RegisterPage />} />
+      <Route path='/imprint' element={<ImprintPage />} />
     </Routes>
   );
 }

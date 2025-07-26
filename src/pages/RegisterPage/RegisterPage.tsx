@@ -8,6 +8,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header.tsx';
 import { Mail, KeyRound, UserRound } from 'lucide-react';
+import Footer from '../../components/Footer/Footer.tsx';
 
 export default function RegisterPage() {
   const [email, setRegisterEmail] = useState('');
@@ -47,94 +48,97 @@ export default function RegisterPage() {
   };
 
   return (
-    <div>
+    <div className='flex flex-col min-h-screen'>
       {/* Header */}
       <Header />
 
-      {/* Register Card */}
-      <div className='flex flex-col items-center'>
-        <div className='card w-80'>
-          {/* Welcome Message */}
-          <p className='font-semibold mt-40'>Willkommen bei Quizelle</p>
-          <p className='text-sm font-light mt-1 mb-8'>
-            Erstelle deinen Account
-          </p>
+      {/* Main Content */}
+      <main className='flex-grow'>
+        {/* Register Card */}
+        <div className='flex flex-col items-center'>
+          <div className='card w-80'>
+            {/* Welcome Message */}
+            <p className='font-semibold mt-40'>Willkommen bei Quizelle</p>
+            <p className='text-sm font-light mt-1 mb-8'>
+              Erstelle deinen Account
+            </p>
 
-          {/* === Register Section === */}
-          {/* E-Mail Field */}
-          <div className='mb-4'>
-            <label className='input validator'>
-              <Mail className='w-4.5 h-4.5 opacity-50' />
-              <input
-                value={email}
-                onChange={(e) => setRegisterEmail(e.target.value)}
-                type='email'
-                placeholder='E-Mail'
-                required
-                title='E-Mail'
-              />
-            </label>
-            <div className='validator-hint hidden'>
-              Enter valid email address
+            {/* === Register Section === */}
+            {/* E-Mail Field */}
+            <div className='mb-4'>
+              <label className='input validator'>
+                <Mail className='w-4.5 h-4.5 opacity-50' />
+                <input
+                  value={email}
+                  onChange={(e) => setRegisterEmail(e.target.value)}
+                  type='email'
+                  placeholder='E-Mail'
+                  required
+                  title='E-Mail'
+                />
+              </label>
+              <div className='validator-hint hidden'>
+                Enter valid email address
+              </div>
             </div>
-          </div>
 
-          {/* Password Field */}
-          <div className='mb-4'>
+            {/* Password Field */}
+            <div className='mb-4'>
+              <label className='input validator'>
+                <KeyRound className='w-4.5 h-4.5 opacity-50' />
+                <input
+                  value={password}
+                  onChange={(e) => setRegisterPassword(e.target.value)}
+                  type='password'
+                  required
+                  placeholder='Passwort'
+                  minLength={8}
+                  pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
+                  title='Passwort'
+                />
+              </label>
+              <p className='validator-hint hidden'>
+                Muss mind. 8 Zeichen enthalten, darunter:
+                <br />
+                - mind. eine Zahl <br />
+                - mind. einen Kleinbuchstaben <br />- mind. einen Großbuchstaben
+              </p>
+            </div>
+
             <label className='input validator'>
-              <KeyRound className='w-4.5 h-4.5 opacity-50' />
+              <UserRound className='w-4.5 h-4.5 opacity-50' />
               <input
-                value={password}
-                onChange={(e) => setRegisterPassword(e.target.value)}
-                type='password'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                type='text'
                 required
-                placeholder='Passwort'
-                minLength={8}
-                pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
-                title='Passwort'
+                placeholder='Wähle einen Nutzernamen'
+                pattern='[A-Za-z][A-Za-z0-9\-]*'
+                minLength={3}
+                maxLength={30}
+                title='Nur Buchstaben, Zahlen oder Bindestrich (-) sind erlaubt.'
               />
             </label>
-            <p className='validator-hint hidden'>
-              Muss mind. 8 Zeichen enthalten, darunter:
+            <p className='validator-hint mb-3'>
+              Länge: 3 bis 30 Zeichen.
               <br />
-              - mind. eine Zahl <br />
-              - mind. einen Kleinbuchstaben <br />- mind. einen Großbuchstaben
+              Nur Buchstaben, Zahlen oder Bindestrich (-).
+            </p>
+
+            {/* Login Button */}
+            <button onClick={register} className='btn btn-active btn-primary'>
+              Registrieren
+            </button>
+            <p className='text-sm font-light mt-3'>
+              Du hast bereits einen Account?{' '}
+              <Link to='/' className='link link-primary'>
+                Zurück zum Login
+              </Link>
             </p>
           </div>
-
-          <label className='input validator'>
-            <UserRound className='w-4.5 h-4.5 opacity-50' />
-            <input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              type='text'
-              required
-              placeholder='Wähle einen Nutzernamen'
-              pattern='[A-Za-z][A-Za-z0-9\-]*'
-              minLength={3}
-              maxLength={30}
-              title='Nur Buchstaben, Zahlen oder Bindestrich (-) sind erlaubt.'
-            />
-          </label>
-          <p className='validator-hint mb-3'>
-            Länge: 3 bis 30 Zeichen.
-            <br />
-            Nur Buchstaben, Zahlen oder Bindestrich (-).
-          </p>
-
-          {/* Login Button */}
-          <button onClick={register} className='btn btn-active btn-primary'>
-            Registrieren
-          </button>
-          <p className='text-sm font-light mt-3'>
-            Du hast bereits einen Account?{' '}
-            <Link to='/' className='link link-primary'>
-              Zurück zum Login
-            </Link>
-          </p>
-          <div className='mb-80'></div>
         </div>
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }
