@@ -3,9 +3,9 @@
   themes: dark --default, dark --prefersdark;
 }
 
-@plugin "daisyui/theme" {
+/* @plugin "daisyui/theme" {
   name: 'dark';
   default: true;
   --color-primary: #575046;
   --color-secondary: #575046;
-}
+} */
