@@ -12,7 +12,7 @@ My purpose for this project was to learn
 
 Quizelle is live on the web. Try it out!
 <a href="https://quizelle.web.app"  target="_blank">
-www.quizelle.web.app
+https://quizelle.web.app
 </a>
 
 <a href="https://quizelle.web.app"  target="_blank">
